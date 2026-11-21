@@ -1,7 +1,37 @@
 # Name: Liezelle Mangunay
-# Course/Section: BSIT - [Your Section]
+# Course/Section: BSIT C
 # Activity: P1 - Student Grade Calculator
 # Date: November 17, 2026
+
+PASSING_SCORE = 75
+
+def validate_scores(s1, s2, s3):
+    return (0 <= s1 <= 100) and (0 <= s2 <= 100) and (0 <= s3 <= 100)
+
+def compute_average(s1, s2, s3):
+    total = s1 + s2 + s3
+    return total / 3
+
+def get_letter_grade(avg):
+    if avg >= 90:
+        return "A"
+    else:
+        if avg >= 80:
+            return "B"
+        else:
+            if avg >= 70:
+                return "C"
+            else:
+                if avg >= 60:
+                    return "D"
+                else:
+                    return "F"
+
+def get_remark(avg):
+    if avg >= PASSING_SCORE:
+        return "Passed"
+    else:
+        return "Failed"
 
 def main():
     print("========================================")
@@ -20,30 +50,13 @@ def main():
             print("Invalid input! Please enter numeric values for scores.")
             continue
 
-        is_valid = (
-            (0 <= score1 <= 100)
-            and (0 <= score2 <= 100)
-            and (0 <= score3 <= 100)
-        )
-
-        if not is_valid:
+        if not validate_scores(score1, score2, score3):
             print("Error: All three scores must be between 0 and 100.")
             continue
 
-        average = (score1 + score2 + score3) / 3
-
-        if average >= 90:
-            letter_grade = "A"
-        elif average >= 80:
-            letter_grade = "B"
-        elif average >= 70:
-            letter_grade = "C"
-        elif average >= 60:
-            letter_grade = "D"
-        else:
-            letter_grade = "F"
-
-        remark = "Passed" if average >= 75 else "Failed"
+        average = compute_average(score1, score2, score3)
+        letter_grade = get_letter_grade(average)
+        remark = get_remark(average)
 
         print("\n----------------------------------------")
         print(f"Student Name : {full_name}")
@@ -61,3 +74,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# A local variable is declared inside a function and can only be used within that specific
+# function, such as 'total' inside compute_average() and 'average' inside main(). A global
+# variable is declared outside all functions and can be accessed throughout the entire program,
+# such as 'PASSING_SCORE' at the top of this file. Separating local variables from global ones
+# keeps each function independent and prevents unintended changes to shared values.
