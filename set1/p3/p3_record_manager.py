@@ -4,11 +4,13 @@
 # Date: November 21, 2026
 
 def add_student(students, names_set):
+    # Read student name and reject blank inputs
     name = input("Enter student name: ").strip()
     if name == "":
         print("Name cannot be empty.")
         return
 
+    # Check lowercase set to prevent case-insensitive duplicate entries
     if name.lower() in names_set:
         print(name + " is already in the list.")
     else:
@@ -17,11 +19,13 @@ def add_student(students, names_set):
         print(name + " added.")
 
 def remove_student(students, names_set):
+    # Verify if the student exists in the set before searching the list
     name = input("Enter student name to remove: ").strip()
     if name.lower() not in names_set:
         print(name + " not found.")
         return
 
+    # Remove matching student from both the list and the tracking set
     for s in students:
         if s.lower() == name.lower():
             students.remove(s)
@@ -30,6 +34,7 @@ def remove_student(students, names_set):
             break
 
 def search_student(students):
+    # Collect all student names matching the search keyword (case-insensitive)
     keyword = input("Search name: ").strip().lower()
     found = []
 
@@ -37,6 +42,7 @@ def search_student(students):
         if keyword in s.lower():
             found.append(s)
 
+    # Sort and display numbered matches, or inform the user if none were found
     if len(found) == 0:
         print("No student matched your search.")
     else:
@@ -45,6 +51,7 @@ def search_student(students):
             print(str(i + 1) + ". " + found[i])
 
 def display_students(students):
+    # Sort student names alphabetically and print numbered entries with total count
     if len(students) == 0:
         print("No records yet.")
     else:
@@ -53,10 +60,12 @@ def display_students(students):
             print(str(i + 1) + ". " + sorted_students[i])
         print("Total students:", len(sorted_students))
 
+# Initialize list for ordered student records and set for fast duplicate checks
 students = []
 names_set = set()
 choice = ""
 
+# Loop main menu until user selects option 5 to exit
 while choice != "5":
     print("\n--- Student Record Manager ---")
     print("1. Add Student")
@@ -66,6 +75,7 @@ while choice != "5":
     print("5. Exit")
     choice = input("Select (1-5): ").strip()
 
+    # Route selected menu choice to the corresponding handler function
     if choice == "1":
         add_student(students, names_set)
     else:
